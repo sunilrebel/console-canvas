@@ -23,6 +23,25 @@ public class ColorBox extends AppEntity {
         generateAndAddParametersFromInput(inputParts);
     }
 
+    static Boolean isValidInput(String[] inputParts) {
+        return inputParts[0].equalsIgnoreCase("b") && inputParts.length == 4;
+    }
+
+    static Boolean isValidPoint(Integer x, Integer y, ColorBox colorBox) {
+        /*
+        Step 1: find out all empty rectangles
+        Step 2: find out the limit of coloring point
+         */
+        List<Rectangle> emptyRectangles = colorBox.getAllEmptyRectangles();
+        if (emptyRectangles.size() == 0)
+            return false;
+        return !colorBox.isPointInOnEmptyArea(x, y, emptyRectangles);
+    }
+
+    static String getPrintingCharacter(ColorBox colorBox) {
+        return colorBox.getParameters().get(COLORING_BOX.COLOR.name()).toString();
+    }
+
     void addLines(List<Line> lines) {
         this.lines = lines;
     }
@@ -53,32 +72,13 @@ public class ColorBox extends AppEntity {
         return false;
     }
 
-    static Boolean isValidInput(String[] inputParts) {
-        return inputParts[0].equalsIgnoreCase("b") && inputParts.length == 4;
-    }
-
-    static Boolean isValidPoint(Integer x, Integer y, ColorBox colorBox) {
-        /*
-        Step 1: find out all empty rectangles
-        Step 2: find out the limit of coloring point
-         */
-        List<Rectangle> emptyRectangles = colorBox.getAllEmptyRectangles();
-        if (emptyRectangles.size()==0)
-            return false;
-        return !colorBox.isPointInOnEmptyArea(x, y, emptyRectangles);
-    }
-
-    static String getPrintingCharacter(ColorBox colorBox) {
-        return colorBox.getParameters().get(COLORING_BOX.COLOR.name()).toString();
-    }
-
     @Override
     protected void generateAndAddParametersFromInput(String[] inputParts) {
         Map<String, Object> params = new HashMap<String, Object>();
 
         try {
-            params.put(COLORING_BOX.X.name(), Integer.parseInt(inputParts[1]));
-            params.put(COLORING_BOX.Y.name(), Integer.parseInt(inputParts[2]));
+            params.put(COLORING_BOX.X.name(), Integer.parseInt(inputParts[1]) + this.pixelAdditionFactor);
+            params.put(COLORING_BOX.Y.name(), Integer.parseInt(inputParts[2]) + this.pixelAdditionFactor);
             params.put(COLORING_BOX.COLOR.name(), inputParts[3]);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Arguments not valid for canvas");

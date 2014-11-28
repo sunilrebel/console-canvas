@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,6 +8,7 @@ public class Canvas extends AppEntity {
 
     Canvas() {
         super();
+        pixelAdditionFactor = 2;
     }
 
     Canvas(String[] inputParts) {
@@ -41,8 +41,8 @@ public class Canvas extends AppEntity {
         Map<String, Object> params = new HashMap<String, Object>();
 
         try {
-            params.put(CANVAS_PARAMS.X.name(), Integer.parseInt(inputParts[1]));
-            params.put(CANVAS_PARAMS.Y.name(), Integer.parseInt(inputParts[2]));
+            params.put(CANVAS_PARAMS.X.name(), Integer.parseInt(inputParts[1]) + this.pixelAdditionFactor);
+            params.put(CANVAS_PARAMS.Y.name(), Integer.parseInt(inputParts[2]) + this.pixelAdditionFactor);
             params.put(CANVAS_PARAMS.CHAR.name(), "*");
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Arguments not valid for canvas");

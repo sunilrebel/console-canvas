@@ -44,10 +44,10 @@ public class Rectangle extends AppEntity {
         Map<String, Object> params = new HashMap<String, Object>();
 
         try {
-            params.put(RECTANGLE_PARAMS.X1.name(), Integer.parseInt(inputParts[1]));
-            params.put(RECTANGLE_PARAMS.Y1.name(), Integer.parseInt(inputParts[2]));
-            params.put(RECTANGLE_PARAMS.X2.name(), Integer.parseInt(inputParts[3]));
-            params.put(RECTANGLE_PARAMS.Y2.name(), Integer.parseInt(inputParts[4]));
+            params.put(RECTANGLE_PARAMS.X1.name(), Integer.parseInt(inputParts[1]) + this.pixelAdditionFactor);
+            params.put(RECTANGLE_PARAMS.Y1.name(), Integer.parseInt(inputParts[2]) + this.pixelAdditionFactor);
+            params.put(RECTANGLE_PARAMS.X2.name(), Integer.parseInt(inputParts[3]) + this.pixelAdditionFactor);
+            params.put(RECTANGLE_PARAMS.Y2.name(), Integer.parseInt(inputParts[4]) + this.pixelAdditionFactor);
             params.put(RECTANGLE_PARAMS.CHAR.name(), "*");
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Arguments not valid for line");

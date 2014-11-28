@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,9 +7,11 @@ import java.util.Map;
 public abstract class AppEntity {
 
     Map<String, Object> parameters;
+    Integer pixelAdditionFactor;
 
     AppEntity() {
         parameters = new HashMap<String, Object>();
+        pixelAdditionFactor = 1;
     }
 
     protected abstract void generateAndAddParametersFromInput(String[] inputParts);
